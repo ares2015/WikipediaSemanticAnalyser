@@ -20,5 +20,11 @@
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
+    <bean id="tokenizer" class="com.wikipediaSemanticAnalyser.preprocessing.tokenizing.TokenizerImpl"/>
+
+    <bean id="sentencePreprocessor" class="com.wikipediaSemanticAnalyser.preprocessing.SentencePreprocessorImpl">
+        <constructor-arg ref="tokenizer"/>
+    </bean>
+
 
 </beans>
