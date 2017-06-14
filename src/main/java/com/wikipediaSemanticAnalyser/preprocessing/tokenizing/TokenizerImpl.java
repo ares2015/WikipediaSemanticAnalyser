@@ -13,7 +13,7 @@ public class TokenizerImpl implements Tokenizer {
         StringBuilder stringBuilder = new StringBuilder();
         char[] chars = token.toCharArray();
         for (char c : chars) {
-            if ((",".equals(String.valueOf(c)) || "'".equals(String.valueOf(c)) || "’".equals(String.valueOf(c))) || ((Character.isDigit(c) || Character.isLetter(c)))) {
+            if ((!",".equals(String.valueOf(c)) || "'".equals(String.valueOf(c)) || "’".equals(String.valueOf(c))) || ((Character.isDigit(c) || Character.isLetter(c)))) {
                 stringBuilder.append(String.valueOf(c));
             }
         }
@@ -57,5 +57,12 @@ public class TokenizerImpl implements Tokenizer {
             }
         }
         return newString.toString();
+    }
+
+    @Override
+    public String extractObjectFromURL(String url) {
+        String[] split = url.split(" ");
+        String[] splitWithWiki = split[1].split("/wiki/");
+        return splitWithWiki[1].substring(0, splitWithWiki[1].length() - 1);
     }
 }

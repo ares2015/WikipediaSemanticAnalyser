@@ -26,5 +26,10 @@
         <constructor-arg ref="tokenizer"/>
     </bean>
 
+    <bean id="crawler" class="com.wikipediaSemanticAnalyser.crawling.CrawlerImpl">
+        <constructor-arg ref="sentencePreprocessor"/>
+        <constructor-arg ref="tokenizer"/>
+    </bean>
+
 
 </beans>

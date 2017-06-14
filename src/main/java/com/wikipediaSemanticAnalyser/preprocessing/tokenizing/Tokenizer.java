@@ -13,4 +13,6 @@ public interface Tokenizer {
 
     String removeEmptyStrings(String sentence);
 
+    String extractObjectFromURL(String url);
+
 }
