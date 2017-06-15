@@ -2,6 +2,7 @@ package com.wikipediaSemanticAnalyser.main;
 
 import com.wikipediaSemanticAnalyser.crawling.Crawler;
 import com.wikipediaSemanticAnalyser.database.DatabaseInserter;
+import com.wikipediaSemanticAnalyser.extraction.SemanticExtractionProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by oled on 6/12/2017.
@@ -26,16 +28,19 @@ public class WikipediaSemanticAnalyser {
 
     private Crawler crawler;
 
+    private SemanticExtractionProcessor semanticExtractionProcessor;
+
     public WikipediaSemanticAnalyser() {
         final ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         this.databaseInserter = (DatabaseInserter) context.getBean("databaseInserter");
         this.crawler = (Crawler) context.getBean("crawler");
-
+        this.semanticExtractionProcessor = (SemanticExtractionProcessor) context.getBean("semanticExtractionProcessor");
     }
 
     @RequestMapping(path = "/analyseObject", method = RequestMethod.GET, produces = {MediaType.TEXT_PLAIN_VALUE})
     String process(@RequestParam(value = "object") String object) throws IOException, InterruptedException {
-        crawler.crawl(object, new ArrayList<String>(), 1);
+        List<String> sentencesList = crawler.crawl(object, new ArrayList<String>(), 1);
+
         return "";
     }
 

@@ -1,6 +1,6 @@
 package com.wikipediaSemanticAnalyser.preprocessing;
 
-import com.wikipediaSemanticAnalyser.preprocessing.tokenizing.Tokenizer;
+import com.wikipediaSemanticAnalyser.tokenizing.Tokenizer;
 
 import java.util.ArrayList;
 import java.util.List;

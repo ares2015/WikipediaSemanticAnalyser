@@ -1,4 +1,6 @@
-package com.wikipediaSemanticAnalyser.preprocessing.tokenizing;
+package com.wikipediaSemanticAnalyser.tokenizing;
+
+import java.util.List;
 
 /**
  * Created by Oliver on 6/13/2017.
@@ -14,5 +16,7 @@ public interface Tokenizer {
     String removeEmptyStrings(String sentence);
 
     String extractObjectFromURL(String url);
+
+    List<String> splitStringIntoList(String sentence);
 
 }

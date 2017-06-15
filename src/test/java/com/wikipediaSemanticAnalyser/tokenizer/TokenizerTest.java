@@ -1,7 +1,7 @@
-package com.wikipediaSemanticAnalyser;
+package com.wikipediaSemanticAnalyser.tokenizer;
 
-import com.wikipediaSemanticAnalyser.preprocessing.tokenizing.Tokenizer;
-import com.wikipediaSemanticAnalyser.preprocessing.tokenizing.TokenizerImpl;
+import com.wikipediaSemanticAnalyser.tokenizing.Tokenizer;
+import com.wikipediaSemanticAnalyser.tokenizing.TokenizerImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

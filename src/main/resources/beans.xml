@@ -20,10 +20,56 @@
         <constructor-arg ref="jdbcTemplate"/>
     </bean>
 
-    <bean id="tokenizer" class="com.wikipediaSemanticAnalyser.preprocessing.tokenizing.TokenizerImpl"/>
+    <bean id="multiListFactory" class="com.wikipediaSemanticAnalyser.factories.MultiListFactoryImpl"/>
+
+    <bean id="inputDataFactory"
+          class="com.wikipediaSemanticAnalyser.factories.InputDataFactoryImpl">
+        <constructor-arg ref="tokenizer"/>
+        <constructor-arg ref="multiListFactory"/>
+    </bean>
+
+    <bean id="tokenizer" class="com.wikipediaSemanticAnalyser.tokenizing.TokenizerImpl"/>
 
     <bean id="sentencePreprocessor" class="com.wikipediaSemanticAnalyser.preprocessing.SentencePreprocessorImpl">
         <constructor-arg ref="tokenizer"/>
+    </bean>
+
+    <bean id="capitalizedTokensPreprocessor"
+          class="com.wikipediaSemanticAnalyser.preprocessing.CapitalizedTokensPreprocessorImpl"/>
+
+    <bean id="semanticPreprocessor" class="com.wikipediaSemanticAnalyser.preprocessing.SemanticPreprocessorImpl"/>
+
+    <bean id="subjectExtractor" class="com.wikipediaSemanticAnalyser.extraction.subject.SubjectExtractorImpl"/>
+
+    <bean id="verbPredicateSequenceExtractor"
+          class="com.wikipediaSemanticAnalyser.extraction.predicate.verb.sequence.VerbPredicateSequenceExtractorImpl"/>
+
+    <bean id="verbPredicateExtractor"
+          class="com.wikipediaSemanticAnalyser.extraction.predicate.verb.VerbPredicateExtractorImpl">
+        <constructor-arg ref="verbPredicateSequenceExtractor"/>
+    </bean>
+
+    <bean id="nounPredicateExtractor"
+          class="com.wikipediaSemanticAnalyser.extraction.predicate.noun.NounPredicateExtractorImpl"/>
+
+    <bean id="prepositionPredicateExtractor"
+          class="com.wikipediaSemanticAnalyser.extraction.predicate.preposition.PrepositionPredicateExtractorImpl"/>
+
+
+    <bean id="semanticRelationsExtractor"
+          class="com.wikipediaSemanticAnalyser.extraction.SemanticRelationsExtractorImpl">
+        <constructor-arg ref="subjectExtractor"/>
+        <constructor-arg ref="verbPredicateExtractor"/>
+        <constructor-arg ref="nounPredicateExtractor"/>
+        <constructor-arg ref="prepositionPredicateExtractor"/>
+    </bean>
+
+    <bean id="semanticExtractionProcessor"
+          class="com.wikipediaSemanticAnalyser.extraction.SemanticExtractionProcessorImpl">
+        <constructor-arg ref="inputDataFactory"/>
+        <constructor-arg ref="capitalizedTokensPreprocessor"/>
+        <constructor-arg ref="semanticPreprocessor"/>
+        <constructor-arg ref="semanticRelationsExtractor"/>
     </bean>
 
     <bean id="crawler" class="com.wikipediaSemanticAnalyser.crawling.CrawlerImpl">

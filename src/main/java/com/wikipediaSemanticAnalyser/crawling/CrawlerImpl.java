@@ -1,7 +1,7 @@
 package com.wikipediaSemanticAnalyser.crawling;
 
 import com.wikipediaSemanticAnalyser.preprocessing.SentencesPreprocessor;
-import com.wikipediaSemanticAnalyser.preprocessing.tokenizing.Tokenizer;
+import com.wikipediaSemanticAnalyser.tokenizing.Tokenizer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -43,7 +43,7 @@ public class CrawlerImpl implements Crawler {
             sentencesList.add(preprocessedSentence);
             System.out.println(preprocessedSentence);
         }
-        Thread.sleep(60000);
+        Thread.sleep(5000);
         if (depth == 1) {
 
             Elements linksOnPage = doc.select("a[href]");
