@@ -13,7 +13,7 @@ public class SpringConfigurationTest {
 
     @Test
     public void test() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring_beans.xml");
         assertTrue(context != null);
     }
 

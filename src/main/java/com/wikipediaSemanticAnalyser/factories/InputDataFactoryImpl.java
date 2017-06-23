@@ -26,14 +26,9 @@ public class InputDataFactoryImpl implements InputDataFactory {
     public InputData create(String sentence, List<List<String>> tagSequencesMultiList) {
         LOGGER.info("ENTERING create method of InputDataFactoryImpl... ");
         LOGGER.info("*********************************************************************");
-
         InputData inputData = new InputData();
-
         LOGGER.info("Processing sentence < " + sentence);
-
         List<String> tokensList = tokenizer.splitStringIntoList(sentence);
-
-
         if (sentence.contains(", ")) {
             inputData.setContainsSubSentences(true);
             //MULTILISTS ARE CREATED FIRST BEFORE COMMAS ARE REMOVED FROM TOKENS LIST AND TAGS LIST
@@ -47,11 +42,7 @@ public class InputDataFactoryImpl implements InputDataFactory {
                 List<String> tagsList = tokenizer.splitStringIntoList(tagSubsequence);
                 inputData.getTagsMultiList().add(tagsList);
             }
-
-
             LOGGER.info("Sentence contains " + subSentencesMultiList.size() + " subSentences.");
-
-
         } else {
             inputData.setContainsSubSentences(false);
             LOGGER.info("Sentence does not contain any subSentences.");
@@ -60,10 +51,8 @@ public class InputDataFactoryImpl implements InputDataFactory {
             List<String> tagsList = tokenizer.splitStringIntoList(tagSequencesMultiList.get(0).get(0));
             inputData.setTagsList(tagsList);
         }
-
         LOGGER.info("LEAVING create method of SubPathDataListFactoryImpl... ");
         LOGGER.info("*********************************************************************");
-
         return inputData;
     }
 

@@ -1,5 +1,8 @@
 package com.wikipediaSemanticAnalyser.extraction;
 
+import com.postagger.main.PosTagger;
+import com.postagger.main.PosTaggerImpl;
+import com.wikipediaSemanticAnalyser.data.InputData;
 import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
 import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
 import com.wikipediaSemanticAnalyser.factories.InputDataFactory;
@@ -19,7 +22,7 @@ public class SemanticExtractionProcessorImpl implements SemanticExtractionProces
 
     private CapitalizedTokensPreprocessor capitalizedTokensPreprocessor;
 
-//    private PosTagger posTagger;
+    private PosTagger posTagger;
 
     private SemanticPreprocessor semanticPreprocessor;
 
@@ -31,7 +34,7 @@ public class SemanticExtractionProcessorImpl implements SemanticExtractionProces
                                            SemanticRelationsExtractor semanticRelationsExtractor) {
         this.inputDataFactory = inputDataFactory;
         this.capitalizedTokensPreprocessor = capitalizedTokensPreprocessor;
-//        this.posTagger = new PosTaggerImpl();
+        this.posTagger = new PosTaggerImpl();
         this.semanticPreprocessor = semanticPreprocessor;
         this.semanticRelationsExtractor = semanticRelationsExtractor;
     }
@@ -39,28 +42,28 @@ public class SemanticExtractionProcessorImpl implements SemanticExtractionProces
     @Override
     public List<SemanticExtractionData> process(List<String> sentencesList) throws InterruptedException {
         List<SemanticExtractionData> semanticExtractionDataList = new ArrayList<>();
-//        for (String sentence : sentencesList) {
-//            List<List<String>> tagSequencesMultiList = posTagger.tag(sentence);
-//            InputData inputData = inputDataFactory.create(sentence, tagSequencesMultiList);
-//            capitalizedTokensPreprocessor.process(inputData);
-//            if (inputData.containsSubSentences()) {
-//                for (int i = 0; i <= inputData.getTokensMultiList().size() - 1; i++) {
-//                    List<String> tokensList = inputData.getTokensMultiList().get(i);
-//                    List<String> tagsList = inputData.getTagsMultiList().get(i);
-//                    Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
-//                    if(semanticExtractionData.isPresent()){
-//                        semanticExtractionDataList.add(semanticExtractionData.get());
-//                    }
-//                }
-//            } else {
-//                List<String> tagsList = inputData.getTagsList();
-//                List<String> tokensList = inputData.getTokensList();
-//                Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
-//                if(semanticExtractionData.isPresent()){
-//                    semanticExtractionDataList.add(semanticExtractionData.get());
-//                }
-//            }
-//        }
+        for (String sentence : sentencesList) {
+            List<List<String>> tagSequencesMultiList = posTagger.tag(sentence);
+            InputData inputData = inputDataFactory.create(sentence, tagSequencesMultiList);
+            capitalizedTokensPreprocessor.process(inputData);
+            if (inputData.containsSubSentences()) {
+                for (int i = 0; i <= inputData.getTokensMultiList().size() - 1; i++) {
+                    List<String> tokensList = inputData.getTokensMultiList().get(i);
+                    List<String> tagsList = inputData.getTagsMultiList().get(i);
+                    Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
+                    if (semanticExtractionData.isPresent()) {
+                        semanticExtractionDataList.add(semanticExtractionData.get());
+                    }
+                }
+            } else {
+                List<String> tagsList = inputData.getTagsList();
+                List<String> tokensList = inputData.getTokensList();
+                Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
+                if (semanticExtractionData.isPresent()) {
+                    semanticExtractionDataList.add(semanticExtractionData.get());
+                }
+            }
+        }
         return semanticExtractionDataList;
     }
 

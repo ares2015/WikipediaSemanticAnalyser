@@ -45,17 +45,13 @@ public class CrawlerImpl implements Crawler {
         }
         Thread.sleep(5000);
         if (depth == 1) {
-
             Elements linksOnPage = doc.select("a[href]");
             populateURLsSet(linksOnPage);
             for (String urlString : urls) {
                 String newObject = tokenizer.extractObjectFromURL(urlString);
-
                 crawl(newObject, sentencesList, 2);
-
             }
         }
-
         return sentencesList;
     }
 
