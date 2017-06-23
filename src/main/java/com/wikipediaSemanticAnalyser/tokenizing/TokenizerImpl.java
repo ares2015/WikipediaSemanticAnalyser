@@ -3,6 +3,7 @@ package com.wikipediaSemanticAnalyser.tokenizing;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Oliver on 6/13/2017.
@@ -60,10 +61,17 @@ public class TokenizerImpl implements Tokenizer {
     }
 
     @Override
-    public String extractObjectFromURL(String url) {
+    public Optional<String> extractObjectFromURL(String url) {
         String[] split = url.split(" ");
-        String[] splitWithWiki = split[1].split("/wiki/");
-        return splitWithWiki[1].substring(0, splitWithWiki[1].length() - 1);
+        String[] splitWithWiki = null;
+        String extractedUrl = "";
+        try {
+            splitWithWiki = split[1].split("/wiki/");
+            extractedUrl = splitWithWiki[1].substring(0, splitWithWiki[1].length() - 1);
+        } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+            return Optional.empty();
+        }
+        return Optional.of(extractedUrl);
     }
 
     @Override

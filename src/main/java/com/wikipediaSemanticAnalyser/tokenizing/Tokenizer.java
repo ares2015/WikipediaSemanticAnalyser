@@ -1,6 +1,7 @@
 package com.wikipediaSemanticAnalyser.tokenizing;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Oliver on 6/13/2017.
@@ -15,7 +16,7 @@ public interface Tokenizer {
 
     String removeEmptyStrings(String sentence);
 
-    String extractObjectFromURL(String url);
+    Optional<String> extractObjectFromURL(String url);
 
     List<String> splitStringIntoList(String sentence);
 

@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -48,8 +49,10 @@ public class CrawlerImpl implements Crawler {
             Elements linksOnPage = doc.select("a[href]");
             populateURLsSet(linksOnPage);
             for (String urlString : urls) {
-                String newObject = tokenizer.extractObjectFromURL(urlString);
-                crawl(newObject, sentencesList, 2);
+                Optional<String> newObject = tokenizer.extractObjectFromURL(urlString);
+                if (newObject.isPresent()) {
+                    crawl(newObject.get(), sentencesList, 2);
+                }
             }
         }
         return sentencesList;
