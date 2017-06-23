@@ -43,25 +43,29 @@ public class SemanticExtractionProcessorImpl implements SemanticExtractionProces
     public List<SemanticExtractionData> process(List<String> sentencesList) throws InterruptedException {
         List<SemanticExtractionData> semanticExtractionDataList = new ArrayList<>();
         for (String sentence : sentencesList) {
-            List<List<String>> tagSequencesMultiList = posTagger.tag(sentence);
-            InputData inputData = inputDataFactory.create(sentence, tagSequencesMultiList);
-            capitalizedTokensPreprocessor.process(inputData);
-            if (inputData.containsSubSentences()) {
-                for (int i = 0; i <= inputData.getTokensMultiList().size() - 1; i++) {
-                    List<String> tokensList = inputData.getTokensMultiList().get(i);
-                    List<String> tagsList = inputData.getTagsMultiList().get(i);
+            try {
+                List<List<String>> tagSequencesMultiList = posTagger.tag(sentence);
+                InputData inputData = inputDataFactory.create(sentence, tagSequencesMultiList);
+                capitalizedTokensPreprocessor.process(inputData);
+                if (inputData.containsSubSentences()) {
+                    for (int i = 0; i <= inputData.getTokensMultiList().size() - 1; i++) {
+                        List<String> tokensList = inputData.getTokensMultiList().get(i);
+                        List<String> tagsList = inputData.getTagsMultiList().get(i);
+                        Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
+                        if (semanticExtractionData.isPresent()) {
+                            semanticExtractionDataList.add(semanticExtractionData.get());
+                        }
+                    }
+                } else {
+                    List<String> tagsList = inputData.getTagsList();
+                    List<String> tokensList = inputData.getTokensList();
                     Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
                     if (semanticExtractionData.isPresent()) {
                         semanticExtractionDataList.add(semanticExtractionData.get());
                     }
                 }
-            } else {
-                List<String> tagsList = inputData.getTagsList();
-                List<String> tokensList = inputData.getTokensList();
-                Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
-                if (semanticExtractionData.isPresent()) {
-                    semanticExtractionDataList.add(semanticExtractionData.get());
-                }
+            } catch (Exception e) {
+                continue;
             }
         }
         return semanticExtractionDataList;
