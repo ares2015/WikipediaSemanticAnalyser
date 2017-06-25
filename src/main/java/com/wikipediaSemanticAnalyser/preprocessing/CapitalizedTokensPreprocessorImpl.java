@@ -23,7 +23,6 @@ public class CapitalizedTokensPreprocessorImpl implements CapitalizedTokensPrepr
                 List<String> tagsList = inputData.getTagsMultiList().get(i);
                 List<String> processedTokensList = new ArrayList<>();
                 List<String> processedTagsList = new ArrayList<>();
-                List<String> processedEncodedTagsList = new ArrayList<>();
                 runCapitalizationLogic(tokensList, tagsList, processedTokensList, processedTagsList, inputData, containsSubSentences, i);
             }
         } else {

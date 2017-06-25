@@ -34,26 +34,32 @@ public class CrawlerImpl implements Crawler {
         Document doc = null;
         try {
             doc = Jsoup.connect(url).get();
-        } catch (org.jsoup.HttpStatusException e) {
-            return sentencesList;
-        }
-        Elements ps = doc.select("p");
-        String[] sentences = ps.text().split("\\.");
-        for (String sentence : sentences) {
-            String preprocessedSentence = sentencesPreprocessor.preprocess(sentence);
-            sentencesList.add(preprocessedSentence);
-            System.out.println(preprocessedSentence);
-        }
-        Thread.sleep(5000);
-        if (depth == 1) {
-            Elements linksOnPage = doc.select("a[href]");
-            populateURLsSet(linksOnPage);
-            for (String urlString : urls) {
-                Optional<String> newObject = tokenizer.extractObjectFromURL(urlString);
-                if (newObject.isPresent()) {
-                    crawl(newObject.get(), sentencesList, 2);
+
+            Elements ps = doc.select("p");
+            String[] sentences = ps.text().split("\\.");
+            for (String sentence : sentences) {
+                String preprocessedSentence = sentencesPreprocessor.preprocess(sentence);
+                sentencesList.add(preprocessedSentence);
+                System.out.println(preprocessedSentence);
+            }
+            Thread.sleep(3000);
+            if (depth == 1) {
+                Elements linksOnPage = doc.select("a[href]");
+                populateURLsSet(linksOnPage);
+                int urlCount = 0;
+                for (String urlString : urls) {
+                    Optional<String> newObject = tokenizer.extractObjectFromURL(urlString);
+                    if (newObject.isPresent()) {
+                        urlCount++;
+                        crawl(newObject.get(), sentencesList, 2);
+                    }
+                    if (urlCount == 5) {
+                        return sentencesList;
+                    }
                 }
             }
+        } catch (Throwable e) {
+            return sentencesList;
         }
         return sentencesList;
     }
