@@ -1,7 +1,7 @@
 package com.wikipediaSemanticAnalyser.preprocessing;
 
 
-import com.wikipediaSemanticAnalyser.data.InputData;
+import com.wikipediaSemanticAnalyser.data.semantics.InputData;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,9 +1,11 @@
 package com.wikipediaSemanticAnalyser.main;
 
 import com.wikipediaSemanticAnalyser.crawling.Crawler;
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.crawling.SentenceObjectData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
 import com.wikipediaSemanticAnalyser.database.DatabaseInserter;
 import com.wikipediaSemanticAnalyser.extraction.SemanticExtractionProcessor;
+import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -31,6 +33,8 @@ public class WikipediaSemanticAnalyser {
 
     private SemanticExtractionProcessor semanticExtractionProcessor;
 
+    private final static Logger LOGGER = Logger.getLogger(WikipediaSemanticAnalyser.class.getName());
+
     public WikipediaSemanticAnalyser() {
         final ApplicationContext context = new ClassPathXmlApplicationContext("spring_beans.xml");
         this.databaseInserter = (DatabaseInserter) context.getBean("databaseInserter");
@@ -40,12 +44,15 @@ public class WikipediaSemanticAnalyser {
 
     @RequestMapping(path = "/analyseObject", method = RequestMethod.GET, produces = {MediaType.TEXT_PLAIN_VALUE})
     String process(@RequestParam(value = "object") String object) throws IOException, InterruptedException {
-        List<String> sentencesList = crawler.crawl(object, new ArrayList<String>(), 1);
+        List<SentenceObjectData> sentencesList = crawler.crawl(object, new ArrayList<SentenceObjectData>(), 1);
         List<SemanticExtractionData> semanticExtractionDataList = semanticExtractionProcessor.process(sentencesList);
         for (SemanticExtractionData semanticExtractionData : semanticExtractionDataList) {
             databaseInserter.insert(semanticExtractionData);
         }
-        return "";
+        String result = sentencesList.size() + " sentences were processed and " + semanticExtractionDataList.size() + " were processed " +
+                "semantically";
+        LOGGER.info(result);
+        return result;
     }
 
     public static void main(String[] args) throws Exception {

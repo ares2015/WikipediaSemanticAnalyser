@@ -1,5 +1,7 @@
 package com.wikipediaSemanticAnalyser.crawling;
 
+import com.wikipediaSemanticAnalyser.data.crawling.SentenceObjectData;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -8,6 +10,6 @@ import java.util.List;
  */
 public interface Crawler {
 
-    List<String> crawl(String object, List<String> sentencesList, int depth) throws IOException, InterruptedException;
+    List<SentenceObjectData> crawl(String object, List<SentenceObjectData> sentencesList, int depth) throws IOException, InterruptedException;
 
 }

@@ -1,8 +1,8 @@
 package com.wikipediaSemanticAnalyser.extraction.predicate.noun;
 
 
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 import com.wikipediaSemanticAnalyser.tags.Tags;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.wikipediaSemanticAnalyser.database;
 
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
 
 /**
  * Created by Oliver on 6/10/2017.

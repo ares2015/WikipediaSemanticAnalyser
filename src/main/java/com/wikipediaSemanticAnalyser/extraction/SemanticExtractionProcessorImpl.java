@@ -2,9 +2,10 @@ package com.wikipediaSemanticAnalyser.extraction;
 
 import com.postagger.main.PosTagger;
 import com.postagger.main.PosTaggerImpl;
-import com.wikipediaSemanticAnalyser.data.InputData;
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.crawling.SentenceObjectData;
+import com.wikipediaSemanticAnalyser.data.semantics.InputData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 import com.wikipediaSemanticAnalyser.factories.InputDataFactory;
 import com.wikipediaSemanticAnalyser.preprocessing.CapitalizedTokensPreprocessor;
 import com.wikipediaSemanticAnalyser.preprocessing.SemanticPreprocessor;
@@ -40,28 +41,33 @@ public class SemanticExtractionProcessorImpl implements SemanticExtractionProces
     }
 
     @Override
-    public List<SemanticExtractionData> process(List<String> sentencesList) throws InterruptedException {
+    public List<SemanticExtractionData> process(List<SentenceObjectData> sentencesList) throws InterruptedException {
         List<SemanticExtractionData> semanticExtractionDataList = new ArrayList<>();
-        for (String sentence : sentencesList) {
+        for (SentenceObjectData sentenceObjectData : sentencesList) {
             try {
-                List<List<String>> tagSequencesMultiList = posTagger.tag(sentence);
-                InputData inputData = inputDataFactory.create(sentence, tagSequencesMultiList);
+                List<List<String>> tagSequencesMultiList = posTagger.tag(sentenceObjectData.getSentence());
+                InputData inputData = inputDataFactory.create(sentenceObjectData.getSentence(), tagSequencesMultiList);
                 capitalizedTokensPreprocessor.process(inputData);
                 if (inputData.containsSubSentences()) {
                     for (int i = 0; i <= inputData.getTokensMultiList().size() - 1; i++) {
                         List<String> tokensList = inputData.getTokensMultiList().get(i);
                         List<String> tagsList = inputData.getTagsMultiList().get(i);
-                        Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
-                        if (semanticExtractionData.isPresent()) {
-                            semanticExtractionDataList.add(semanticExtractionData.get());
+                        Optional<SemanticExtractionData> semanticExtractionDataOptional = processSentence(tokensList, tagsList);
+                        if (semanticExtractionDataOptional.isPresent()) {
+                            SemanticExtractionData semanticExtractionData = semanticExtractionDataOptional.get();
+                            semanticExtractionData.setSentence(sentenceObjectData.getSentence());
+                            semanticExtractionDataList.add(semanticExtractionData);
                         }
                     }
                 } else {
                     List<String> tagsList = inputData.getTagsList();
                     List<String> tokensList = inputData.getTokensList();
-                    Optional<SemanticExtractionData> semanticExtractionData = processSentence(tokensList, tagsList);
-                    if (semanticExtractionData.isPresent()) {
-                        semanticExtractionDataList.add(semanticExtractionData.get());
+                    Optional<SemanticExtractionData> semanticExtractionDataOptional = processSentence(tokensList, tagsList);
+                    if (semanticExtractionDataOptional.isPresent()) {
+                        SemanticExtractionData semanticExtractionData = semanticExtractionDataOptional.get();
+                        semanticExtractionData.setSentence(sentenceObjectData.getSentence());
+                        semanticExtractionData.setObject(sentenceObjectData.getObject());
+                        semanticExtractionDataList.add(semanticExtractionData);
                     }
                 }
             } catch (Exception e) {

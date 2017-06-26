@@ -1,6 +1,6 @@
 package com.wikipediaSemanticAnalyser.preprocessing;
 
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.wikipediaSemanticAnalyser.extraction.subject;
 
 
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 
 /**
  * Created by Oliver on 2/16/2017.

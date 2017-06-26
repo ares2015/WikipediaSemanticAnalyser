@@ -1,7 +1,7 @@
 package com.wikipediaSemanticAnalyser.preprocessing;
 
 
-import com.wikipediaSemanticAnalyser.data.InputData;
+import com.wikipediaSemanticAnalyser.data.semantics.InputData;
 
 /**
  * Created by Oliver on 5/15/2017.

@@ -1,8 +1,8 @@
 package com.wikipediaSemanticAnalyser.extraction.predicate.verb;
 
 
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 
 /**
  * Created by Oliver on 2/17/2017.

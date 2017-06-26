@@ -1,18 +1,19 @@
-package com.wikipediaSemanticAnalyser.data;
+package com.wikipediaSemanticAnalyser.data.semantics;
 
 /**
  * Created by oled on 6/15/2017.
  */
-public class HaveVerbEdSequenceIndexes {
+public class DoVerbSequenceIndexes {
 
-    private int startIndex;
+    private int startIndex = -1;
 
-    private int endIndex;
+    private int endIndex = -1;
 
-    public HaveVerbEdSequenceIndexes() {
+    public DoVerbSequenceIndexes() {
+
     }
 
-    public HaveVerbEdSequenceIndexes(int startIndex, int endIndex) {
+    public DoVerbSequenceIndexes(int startIndex, int endIndex) {
         this.startIndex = startIndex;
         this.endIndex = endIndex;
     }
@@ -24,5 +25,4 @@ public class HaveVerbEdSequenceIndexes {
     public int getEndIndex() {
         return endIndex;
     }
-
 }

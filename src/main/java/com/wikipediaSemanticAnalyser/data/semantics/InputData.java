@@ -1,4 +1,4 @@
-package com.wikipediaSemanticAnalyser.data;
+package com.wikipediaSemanticAnalyser.data.semantics;
 
 import java.util.ArrayList;
 import java.util.List;

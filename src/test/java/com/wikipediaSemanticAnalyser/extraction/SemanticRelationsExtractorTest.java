@@ -1,8 +1,8 @@
 package com.wikipediaSemanticAnalyser.extraction;
 
 
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 import com.wikipediaSemanticAnalyser.extraction.predicate.noun.NounPredicateExtractor;
 import com.wikipediaSemanticAnalyser.extraction.predicate.noun.NounPredicateExtractorImpl;
 import com.wikipediaSemanticAnalyser.extraction.predicate.preposition.PrepositionPredicateExtractor;

@@ -1,6 +1,6 @@
 package com.wikipediaSemanticAnalyser.factories;
 
-import com.wikipediaSemanticAnalyser.data.InputData;
+import com.wikipediaSemanticAnalyser.data.semantics.InputData;
 
 import java.util.List;
 

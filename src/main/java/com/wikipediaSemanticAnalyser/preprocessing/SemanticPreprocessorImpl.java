@@ -2,7 +2,7 @@ package com.wikipediaSemanticAnalyser.preprocessing;
 
 
 import com.wikipediaSemanticAnalyser.cache.SemanticExtractionFilterCache;
-import com.wikipediaSemanticAnalyser.data.*;
+import com.wikipediaSemanticAnalyser.data.semantics.*;
 import com.wikipediaSemanticAnalyser.tags.Tags;
 
 import java.util.ArrayList;

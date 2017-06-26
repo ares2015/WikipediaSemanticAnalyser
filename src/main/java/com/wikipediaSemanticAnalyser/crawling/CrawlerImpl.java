@@ -1,5 +1,6 @@
 package com.wikipediaSemanticAnalyser.crawling;
 
+import com.wikipediaSemanticAnalyser.data.crawling.SentenceObjectData;
 import com.wikipediaSemanticAnalyser.preprocessing.SentencesPreprocessor;
 import com.wikipediaSemanticAnalyser.tokenizing.Tokenizer;
 import org.jsoup.Jsoup;
@@ -29,7 +30,7 @@ public class CrawlerImpl implements Crawler {
     }
 
     @Override
-    public List<String> crawl(String object, List<String> sentencesList, int depth) throws IOException, InterruptedException {
+    public List<SentenceObjectData> crawl(String object, List<SentenceObjectData> sentencesList, int depth) throws IOException, InterruptedException {
         String url = "https://en.wikipedia.org/wiki/" + object;
         Document doc = null;
         try {
@@ -39,7 +40,8 @@ public class CrawlerImpl implements Crawler {
             String[] sentences = ps.text().split("\\.");
             for (String sentence : sentences) {
                 String preprocessedSentence = sentencesPreprocessor.preprocess(sentence);
-                sentencesList.add(preprocessedSentence);
+                SentenceObjectData sentenceObjectData = new SentenceObjectData(preprocessedSentence, object);
+                sentencesList.add(sentenceObjectData);
                 System.out.println(preprocessedSentence);
             }
             Thread.sleep(3000);
@@ -53,7 +55,7 @@ public class CrawlerImpl implements Crawler {
                         urlCount++;
                         crawl(newObject.get(), sentencesList, 2);
                     }
-                    if (urlCount == 5) {
+                    if (urlCount == 2) {
                         return sentencesList;
                     }
                 }

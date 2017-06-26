@@ -1,8 +1,8 @@
 package com.wikipediaSemanticAnalyser.extraction.predicate.verb;
 
 import com.wikipediaSemanticAnalyser.cache.SemanticExtractionFilterCache;
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 import com.wikipediaSemanticAnalyser.extraction.predicate.verb.sequence.VerbPredicateSequenceExtractor;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.wikipediaSemanticAnalyser.extraction.predicate.preposition;
 
-import com.wikipediaSemanticAnalyser.data.SemanticExtractionData;
-import com.wikipediaSemanticAnalyser.data.SemanticPreprocessingData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticExtractionData;
+import com.wikipediaSemanticAnalyser.data.semantics.SemanticPreprocessingData;
 
 import java.util.List;
 
